@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 import web.model.User;
 
 import javax.persistence.*;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,9 +24,34 @@ public class UserDaoImpl implements UserDao {
         return users;
     }
 
+    public User getUser(long id) {
+        User user = entityManager.find(User.class, id);
+        return user;
+    }
+
     public void save(User user) {
         entityManager.persist(user);
 
     }
-}
+
+    public void delete(long id) {
+        User user = entityManager.find(User.class, id);
+        entityManager.remove(user);
+    }
+
+    public void update(long id, User updatedUser) {
+        User user = entityManager.find(User.class, id);
+        user.setName(updatedUser.getName());
+        user.setAge(updatedUser.getAge());
+        entityManager.merge(user);
+        }
+
+
+
+
+    }
+
+
+
+
 
