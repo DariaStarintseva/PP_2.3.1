@@ -70,14 +70,14 @@ public class AppConfig {
 
     Properties additionalProperties() {
         Properties properties = new Properties();
-        properties.setProperty("hibernate.show_sql", "true");
-        properties.setProperty("hibernate.hbm2ddl.auto", "update");
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5Dialect");
         try(InputStream is = getClass().getClassLoader().getResourceAsStream("db.properties");) {
             properties.load(is);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        properties.getProperty("hibernate.show_sql");
+        properties.getProperty("hibernate.hbm2ddl.auto");
+        properties.getProperty("hibernate.dialect");
         return properties;
     }
 }

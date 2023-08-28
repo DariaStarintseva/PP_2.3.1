@@ -1,13 +1,9 @@
 package web.dao;
 
-import org.hibernate.Session;
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Repository;
 import web.model.User;
-
 import javax.persistence.*;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,12 +27,14 @@ public class UserDaoImpl implements UserDao {
 
     public void save(User user) {
         entityManager.persist(user);
+        entityManager.flush();
 
     }
 
     public void delete(long id) {
         User user = entityManager.find(User.class, id);
         entityManager.remove(user);
+        entityManager.flush();
     }
 
     public void update(long id, User updatedUser) {
@@ -44,6 +42,7 @@ public class UserDaoImpl implements UserDao {
         user.setName(updatedUser.getName());
         user.setAge(updatedUser.getAge());
         entityManager.merge(user);
+        entityManager.flush();
         }
 
 
